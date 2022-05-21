@@ -1,4 +1,4 @@
-# Argu Menufeacture Machinaries Website:
+# Argu manufacturer Machinaries Website:
 
 Project Live Link: [Click Live Link](https://argo-machineries.web.app/).
 

@@ -11,9 +11,9 @@ const Signin = () => {
   return (
     <div>
       <h1 className='text-center text-4xl'>Sign In</h1>
-      <div class="artboard artboard-horizontal phone-5 mt-12 mx-auto">
+      <div class="artboard artboard-horizontal phone-5 mt-6 mx-auto">
         <div class="hero bg-base-200 rounded-2xl py-8">
-          <div class="hero-content flex-col lg:flex-row">
+          <div class="hero-content flex-col lg:flex-row-reverse">
             <div className='flex-shrink-0'>
               <img className='max-w-sm' src={bg_login} alt='' />
             </div>
@@ -79,7 +79,7 @@ const Signin = () => {
                   value="Signin"
                 />
               </form>
-              <span className='text-center label-text'>New to Doctors Portal? <Link to="/signup" className='text-primary'>Create new account</Link></span>
+              <span className='text-center label-text'>New to Argo Machineries? <Link to="/signup" className='text-primary'>Create new account</Link></span>
               <div className="divider">OR</div>
 
               <button className="btn btn-outline w-full"><FcGoogle className='mx-2 text-xl' /> Signin With Google</button>
