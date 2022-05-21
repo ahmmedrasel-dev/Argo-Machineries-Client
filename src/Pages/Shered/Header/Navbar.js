@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/images/logo.png"
 
 const Navbar = () => {
   const navItem = <>
@@ -25,7 +26,7 @@ const Navbar = () => {
               {navItem}
             </ul>
           </div>
-          <Link to='/' className="btn btn-ghost normal-case text-xl">Argo Machineries</Link>
+          <Link to='/'><img className="w-28" src={logo} alt="logo" /></Link>
         </div>
         <div className="flex-non">
           <div className=" hidden lg:flex">
