@@ -11,23 +11,23 @@ const Signin = () => {
   return (
     <div>
       <h1 className='text-center text-4xl'>Sign In</h1>
-      <div class="artboard artboard-horizontal phone-5 mt-6 mx-auto">
-        <div class="hero bg-base-200 rounded-2xl py-8">
-          <div class="hero-content flex-col lg:flex-row-reverse">
+      <div className="artboard artboard-horizontal phone-5 mt-6 mx-auto">
+        <div className="hero bg-base-200 rounded-2xl py-8">
+          <div className="hero-content flex-col lg:flex-row-reverse">
             <div className='flex-shrink-0'>
               <img className='max-w-sm' src={bg_login} alt='' />
             </div>
-            <div class="divider lg:divider-horizontal">OR</div>
+            <div className="divider lg:divider-horizontal">OR</div>
             <div className='flex-shrink-0 w-full max-w-sm'>
               <form className='mb-4' onSubmit={handleSubmit(onSubmit)}>
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text">Email</span>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
                   </label>
                   <input
                     type="text"
                     placeholder="email"
-                    class="input input-bordered"
+                    className="input input-bordered"
                     {...register("email", {
                       pattern: {
                         value: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
@@ -46,14 +46,14 @@ const Signin = () => {
                   </label>
                 </div>
 
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text">Password</span>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
                   </label>
                   <input
                     type="password"
                     placeholder="Password"
-                    class="input input-bordered"
+                    className="input input-bordered"
                     {...register("password", {
                       minLength: {
                         value: 8,

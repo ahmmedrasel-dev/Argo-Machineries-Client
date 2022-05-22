@@ -7,6 +7,8 @@ import Footer from "./Pages/Shered/Footer/Footer";
 import Navbar from "./Pages/Shered/Header/Navbar";
 import Signin from "./Pages/Signin/Signin";
 import Signup from "./Pages/Signup/Signup";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="*" element={<Notfound></Notfound>}></Route>
       </Routes>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </>
   );
 }

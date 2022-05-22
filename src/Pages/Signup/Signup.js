@@ -1,32 +1,97 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import bg_login from '../../assets/images/bg_login.png';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import Loading from '../Shered/Loading/Loading';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const [
+    createUserWithEmailAndPassword,
+    signUpUser,
+    loading,
+    signUpError,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  const [
+    updateProfile,
+    updating,
+    updateError
+  ] = useUpdateProfile(auth);
+
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+
+  useEffect(() => {
+    if (signUpError) {
+      toast.error(signUpError.message);
+    }
+    if (updateError) {
+      toast.error(updateError.message);
+    }
+  }, [signUpError, updateError])
+
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  if (signUpUser) {
+    navigate('/')
+  }
+
+  const onSubmit = async data => {
+    const { email, password, name } = data;
+    const user = {
+      email: email,
+      name: name,
+    }
+    fetch(`http://localhost:5000/user`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then(res => {
+        if (res.status === 403) {
+          toast.error('Fail to Make Admin!')
+        }
+        return res.json()
+      })
+      .then(data => {
+        if (data.succes) {
+          toast.success(data.message)
+        }
+      })
+
+    await createUserWithEmailAndPassword(email, password)
+    await updateProfile({ displayName: name });
+
+  };
   return (
     <div>
       <h1 className='text-center text-4xl'>Sign Up</h1>
-      <div class="artboard artboard-horizontal phone-5 mt-6 mx-auto">
-        <div class="hero bg-base-200 rounded-2xl py-8">
-          <div class="hero-content flex-col lg:flex-row">
+      <div className="artboard artboard-horizontal phone-5 mt-6 mx-auto">
+        <div className="hero bg-base-200 rounded-2xl py-8">
+          <div className="hero-content flex-col lg:flex-row">
             <div className='flex-shrink-0'>
               <img className='max-w-sm' src={bg_login} alt='' />
             </div>
-            <div class="divider lg:divider-horizontal">OR</div>
+            <div className="divider lg:divider-horizontal">OR</div>
             <div className='flex-shrink-0 w-full max-w-sm'>
               <form className='mb-4' onSubmit={handleSubmit(onSubmit)}>
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text">Name</span>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
                   </label>
                   <input
                     type="text"
                     placeholder="Your Name"
-                    class="input input-bordered"
+                    className="input input-bordered"
                     {...register("name", {
                       required: {
                         value: true,
@@ -40,14 +105,14 @@ const Signup = () => {
                   </label>
                 </div>
 
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text">Email</span>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
                   </label>
                   <input
-                    type="text"
-                    placeholder="email"
-                    class="input input-bordered"
+                    type="email"
+                    placeholder="Your Email"
+                    className="input input-bordered"
                     {...register("email", {
                       pattern: {
                         value: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
@@ -55,7 +120,7 @@ const Signup = () => {
                       },
                       required: {
                         value: true,
-                        message: 'Email Required!'
+                        message: 'Email is Required!'
                       }
                     })}
                   />
@@ -66,14 +131,15 @@ const Signup = () => {
                   </label>
                 </div>
 
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text">Password</span>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
                   </label>
                   <input
+                    autoComplete='off'
                     type="password"
                     placeholder="Password"
-                    class="input input-bordered"
+                    className="input input-bordered"
                     {...register("password", {
                       minLength: {
                         value: 8,
