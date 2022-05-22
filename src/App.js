@@ -9,6 +9,7 @@ import Signin from "./Pages/Signin/Signin";
 import Signup from "./Pages/Signup/Signup";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import 'animate.css';
 
 function App() {
   return (

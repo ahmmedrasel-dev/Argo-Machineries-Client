@@ -1,9 +1,13 @@
 import React from "react";
+import Banner from "./Banner";
+import Machinary from "./Machinary";
+
 
 const Home = () => {
   return (
     <div>
-      <div><h1>this is home page</h1></div>
+      <Banner></Banner>
+      <Machinary></Machinary>
     </div>
   );
 };

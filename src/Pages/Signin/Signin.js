@@ -1,12 +1,33 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bg_login from '../../assets/images/bg_login.png';
 import { FcGoogle } from 'react-icons/fc';
+import { useForm } from 'react-hook-form';
+import auth from '../../firebase.init';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loading from '../Shered/Loading/Loading';
 
 const Signin = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const navigate = useNavigate()
+  const [
+    signInWithEmailAndPassword,
+    signInUser,
+    signInLoading,
+    signInError,
+  ] = useSignInWithEmailAndPassword(auth);
+
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  if (signInLoading) {
+    return <Loading></Loading>
+  }
+
+  if (signInUser) {
+    navigate('/')
+  }
+  const onSubmit = data => {
+    signInWithEmailAndPassword(data.email, data.password)
+  };
 
   return (
     <div>
@@ -51,6 +72,7 @@ const Signin = () => {
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    autoComplete=''
                     type="password"
                     placeholder="Password"
                     className="input input-bordered"
@@ -76,7 +98,7 @@ const Signin = () => {
                 <input
                   type="submit"
                   className="btn btn-accent uppercase w-full"
-                  value="Signin"
+                  value="Sign In"
                 />
               </form>
               <span className='text-center label-text'>New to Argo Machineries? <Link to="/signup" className='text-primary'>Create new account</Link></span>
