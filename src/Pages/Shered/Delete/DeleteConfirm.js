@@ -1,16 +1,15 @@
-import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../../api/AxiosPrivate';
 
 const DeletConfirmModel = ({ setDeleteProduct, refetch, deleteProduct }) => {
   const { _id, name } = deleteProduct;
 
   const handDelete = () => {
     const deletePro = async () => {
-      const { data } = axios.delete(`http://localhost:5000/product/${_id}`);
-      console.log(data)
-      if (data.deletedCount > 0) {
-        toast.warning(`Doctors: ${name} is Deleted!`)
+      const response = await axiosPrivate.delete(`http://localhost:5000/product/${_id}`);
+      if (response.status === 200) {
+        toast.success(`Product: ${name} is Deleted!`)
         setDeleteProduct(null)
         refetch()
       }
