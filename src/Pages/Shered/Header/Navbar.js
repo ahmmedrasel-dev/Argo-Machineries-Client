@@ -9,15 +9,15 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
   const signout = () => {
     signOut(auth)
+    localStorage.removeItem('accessToken')
   }
   const navItem = <>
     <li><Link to='/'>Home</Link></li>
     <li><Link to='/appoinment'>Machineries</Link></li>
     <li><Link to='/review'>Review</Link></li>
     <li><Link to='/blog'>Blog</Link></li>
-    <li>{!user && <Link to='signin'>SignIn</Link>}</li>
-    {/* {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
-    <li>{user ? <button onClick={signout} className="btn btn-ghost">Sign out</button> : <Link to='/signin'>signin</Link>}</li> */}
+    <li>{!user && <Link to='/signin'>SignIn</Link>}</li>
+
   </>
 
   return (
@@ -54,6 +54,8 @@ const Navbar = () => {
                 < ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                   <li>
                     <Link to='profile' className="justify-between">{user.displayName}</Link>
+                    <Link to='dashboard' className="justify-between hidden lg:block">Dashboard</Link>
+                    <label htmlFor="my-drawer-2" className="justify-between lg:hidden">Dashboard</label>
                     <button onClick={signout}>Sign Out</button>
                   </li>
                 </ul>

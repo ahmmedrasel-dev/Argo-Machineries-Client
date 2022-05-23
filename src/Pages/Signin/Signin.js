@@ -8,9 +8,11 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 
 import Loading from '../Shered/Loading/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const Signin = () => {
   const navigate = useNavigate()
+
   const [
     signInWithEmailAndPassword,
     signInUser,
@@ -19,6 +21,8 @@ const Signin = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+
+  const [token] = useToken(signInUser || googleUser);
 
   const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -36,7 +40,7 @@ const Signin = () => {
     return <Loading></Loading>
   }
 
-  if (signInUser || googleUser) {
+  if (token) {
     navigate('/')
   }
 
@@ -106,7 +110,7 @@ const Signin = () => {
                     })}
                   />
                   <label className="label">
-                    <Link className="label-text" to='reset-password'>Forgot Password?</Link>
+                    <Link className="label-text" to='/reset-password'>Forgot Password?</Link>
                     {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                     {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                   </label>
@@ -122,7 +126,7 @@ const Signin = () => {
               <span className='text-center label-text'>New to Argo Machineries? <Link to="/signup" className='text-primary'>Create new account</Link></span>
               <div className="divider">OR</div>
 
-              <button onClick={handleGoogle} className="btn btn-outline w-full"><FcGoogle className='mx-2 text-xl' /> Signin With Google</button>
+              <button onClick={handleGoogle} className="btn btn-outline w-full"><FcGoogle className='mx-2 text-xl' />Signin With Google</button>
             </div>
           </div>
         </div>

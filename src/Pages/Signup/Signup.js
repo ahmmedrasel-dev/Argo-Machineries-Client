@@ -7,6 +7,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile, useSignInWithGoogl
 import auth from '../../firebase.init';
 import Loading from '../Shered/Loading/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -24,6 +25,8 @@ const Signup = () => {
     updating,
     updateError
   ] = useUpdateProfile(auth);
+
+  const [token] = useToken(signUpUser || googleUser)
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -45,7 +48,7 @@ const Signup = () => {
     return <Loading></Loading>;
   }
 
-  if (signUpUser || googleUser) {
+  if (token) {
     navigate('/')
   }
 
@@ -55,28 +58,8 @@ const Signup = () => {
 
   const onSubmit = async data => {
     const { email, password, name } = data;
-    const user = {
-      email: email,
-      name: name,
-    }
-    fetch(`http://localhost:5000/user`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json()
-      )
-      .then(data => {
-        if (data.succes) {
-          toast.success(data.message)
-        }
-      })
-
     await createUserWithEmailAndPassword(email, password)
     await updateProfile({ displayName: name });
-
   };
   return (
     <div className='lg:h-[750px] h-[1050px] bg-slate-200'>
