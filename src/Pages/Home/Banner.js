@@ -3,7 +3,7 @@ import sliders from '../../assets/images/sliders.jpg';
 
 const Banner = () => {
   return (
-    <div className="hero h-[550px]" style={{ background: `url(${sliders})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
+    <div className="hero h-[550px] lg:w-full" style={{ background: `url(${sliders})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
       <div className="hero-overlay bg-opacity-80 bg-black"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-2xl">

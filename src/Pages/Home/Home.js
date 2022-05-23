@@ -1,6 +1,8 @@
 import React from "react";
 import Banner from "./Banner";
+import BusinessSummery from "./BusinessSummery";
 import Machinary from "./Machinary";
+import Review from "./Review";
 
 
 const Home = () => {
@@ -8,6 +10,8 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <Machinary></Machinary>
+      <BusinessSummery></BusinessSummery>
+      <Review></Review>
     </div>
   );
 };
