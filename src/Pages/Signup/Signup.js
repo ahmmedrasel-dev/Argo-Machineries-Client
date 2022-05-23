@@ -56,7 +56,8 @@ const Signup = () => {
       },
       body: JSON.stringify(user),
     })
-      .then(res => res.json())
+      .then(res => res.json()
+      )
       .then(data => {
         if (data.succes) {
           toast.success(data.message)
