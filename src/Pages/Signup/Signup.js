@@ -56,12 +56,7 @@ const Signup = () => {
       },
       body: JSON.stringify(user),
     })
-      .then(res => {
-        if (res.status === 403) {
-          toast.error('Fail to Make Admin!')
-        }
-        return res.json()
-      })
+      .then(res => res.json())
       .then(data => {
         if (data.succes) {
           toast.success(data.message)
