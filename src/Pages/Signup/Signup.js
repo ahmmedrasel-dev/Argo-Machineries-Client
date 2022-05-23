@@ -3,7 +3,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import bg_login from '../../assets/images/bg_login.png';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shered/Loading/Loading';
 import { toast } from 'react-toastify';
@@ -16,6 +16,8 @@ const Signup = () => {
     loading,
     signUpError,
   ] = useCreateUserWithEmailAndPassword(auth);
+
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
   const [
     updateProfile,
@@ -32,15 +34,23 @@ const Signup = () => {
     if (updateError) {
       toast.error(updateError.message);
     }
-  }, [signUpError, updateError])
+
+    if (googleError) {
+      toast.error(googleError.message);
+    }
+  }, [signUpError, updateError, googleError])
 
 
-  if (loading) {
+  if (loading || googleLoading) {
     return <Loading></Loading>;
   }
 
-  if (signUpUser) {
+  if (signUpUser || googleUser) {
     navigate('/')
+  }
+
+  const handleGoogle = () => {
+    signInWithGoogle()
   }
 
   const onSubmit = async data => {
@@ -69,13 +79,13 @@ const Signup = () => {
 
   };
   return (
-    <div>
-      <h1 className='text-center text-4xl'>Sign Up</h1>
-      <div className="artboard artboard-horizontal phone-5 mt-6 mx-auto">
-        <div className="hero bg-base-200 rounded-2xl py-8">
+    <div className='lg:h-[750px] h-[1050px] bg-slate-200'>
+      <h1 className='text-center text-4xl pt-10'>Sign Up</h1>
+      <div className="artboard lg:artboard-horizontal  lg:max-w-4xl max-w-sm mt-6 mx-auto">
+        <div className="hero bg-base-100 rounded-2xl py-8">
           <div className="hero-content flex-col lg:flex-row">
-            <div className='flex-shrink-0'>
-              <img className='max-w-sm' src={bg_login} alt='' />
+            <div className='flex-shrink-0 '>
+              <img className='max-w-ex lg:max-w-sm' src={bg_login} alt='' />
             </div>
             <div className="divider lg:divider-horizontal">OR</div>
             <div className='flex-shrink-0 w-full max-w-sm'>
@@ -164,7 +174,7 @@ const Signup = () => {
               <span className='text-center label-text'>Already have an account? <Link to="/signin" className='text-primary'>Signin</Link></span>
               <div className="divider">OR</div>
 
-              <button className="btn btn-outline w-full"><FcGoogle className='mx-2 text-xl' /> Signin With Google</button>
+              <button onClick={handleGoogle} className="btn btn-outline w-full"><FcGoogle className='mx-2 text-xl' /> Signin With Google</button>
             </div>
           </div>
         </div>

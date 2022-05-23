@@ -6,10 +6,10 @@ import { VscFeedback } from 'react-icons/vsc';
 const BusinessSummery = () => {
 
   return (
-    <div className='lg:h-[350px] h-screen' style={{ background: `url(${bg_1})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
+    <div className='lg:h-[390px] h-screen' style={{ background: `url(${bg_1})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
       <h1 className='text-3xl text-yellow-400 text-center pt-8'>What We Achived?</h1>
 
-      <div className='grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 max-w-7xl mx-auto mt-10 p-5'>
+      <div className='grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-5 max-w-7xl mx-auto my-10 p-5'>
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body flext flex-col justify-center items-center">
             <FaUsers className='text-yellow-400 text-5xl' />
@@ -42,8 +42,6 @@ const BusinessSummery = () => {
           </div>
         </div>
       </div>
-
-
 
     </div>
   );
