@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import axiosPrivate from '../../api/AxiosPrivate';
 import Loading from '../Shered/Loading/Loading';
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init';
+import { useNavigate } from 'react-router-dom';
+import DeletConfirmModel from '../Shered/Delete/DeleteConfirm';
 
 const AllProducts = () => {
-
-  const { data: products, isLoading } = useQuery('all-products',
+  const [deleteProduct, setDeleteProduct] = useState(null);
+  const navigate = useNavigate()
+  const { data: products, isLoading, refetch } = useQuery('all-products',
     async () => {
       try {
         const { data } = await axiosPrivate.get(`http://localhost:5000/all-products`);
         return data
       }
       catch (error) {
-        console.log(error.message)
+        if (error) {
+          signOut(auth);
+          localStorage.removeItem('accessToken');
+          navigate('/')
+        }
       }
 
     })
@@ -51,12 +60,21 @@ const AllProducts = () => {
               <td>{product.price}</td>
               <td>{product.quantity}</td>
               <td>{product.minQuantity}</td>
-              <td><button className="btn btn-sm bg-red-600">Delete</button></td>
+              <td>
+                <label htmlFor="delete-modal" onClick={() => setDeleteProduct(product)} className="btn btn-sm bg-red-600">Delete</label>
+              </td>
             </tr>)
           }
 
         </tbody>
       </table>
+
+      {deleteProduct && <DeletConfirmModel
+        deleteProduct={deleteProduct}
+        refetch={refetch}
+        setDeleteProduct={setDeleteProduct}
+      ></DeletConfirmModel>}
+
     </div>
   );
 };
