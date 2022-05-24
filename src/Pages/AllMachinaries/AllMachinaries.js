@@ -4,16 +4,16 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../api/AxiosPrivate';
 import auth from '../../firebase.init';
+import SigngleProduct from '../Home/SigngleProduct';
 import Loading from '../Shered/Loading/Loading';
-import SigngleProduct from './SigngleProduct';
 
-const Machinary = () => {
+const AllMachinaries = () => {
   const navigate = useNavigate()
   const { data: products, isLoading, refetch } = useQuery('all-products',
     async () => {
       try {
         const { data } = await axiosPrivate.get(`http://localhost:5000/all-products`);
-        return data.slice(0, 3)
+        return data
       }
       catch (error) {
         if (error) {
@@ -25,12 +25,9 @@ const Machinary = () => {
 
     })
 
-
   if (isLoading) {
     return <Loading></Loading>
   }
-
-  // console.log(oddNumber)
 
   return (
     <div className='max-w-7xl mx-auto my-12'>
@@ -48,4 +45,4 @@ const Machinary = () => {
   );
 };
 
-export default Machinary;
+export default AllMachinaries;

@@ -13,7 +13,7 @@ const Navbar = () => {
   }
   const navItem = <>
     <li><Link to='/'>Home</Link></li>
-    <li><Link to='/appoinment'>Machineries</Link></li>
+    <li><Link to='/all-machinaries'>Machineries</Link></li>
     <li><Link to='/review'>Review</Link></li>
     <li><Link to='/blog'>Blog</Link></li>
     <li>{!user && <Link to='/signin'>SignIn</Link>}</li>

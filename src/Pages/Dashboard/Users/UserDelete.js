@@ -4,8 +4,10 @@ import axiosPrivate from '../../../api/AxiosPrivate';
 
 const UserDelete = ({ userDelete, refetch, setUserDelete }) => {
   const { _id, name } = userDelete;
+
   const handDelete = () => {
-    const deletePro = async () => {
+    console.log(_id)
+    const deleteProd = async () => {
       const response = await axiosPrivate.delete(`http://localhost:5000/user/${_id}`);
       if (response.status === 200) {
         toast.success(`User: ${name} is Deleted!`)
@@ -13,7 +15,7 @@ const UserDelete = ({ userDelete, refetch, setUserDelete }) => {
         refetch()
       }
     }
-    deletePro()
+    deleteProd()
   }
 
   return (
