@@ -14,7 +14,7 @@ const Contact = () => {
       message: data.message
     }
 
-    fetch(`http://localhost:5000/contact`, {
+    fetch(`https://argo-machineries.herokuapp.com/contact`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

@@ -13,7 +13,7 @@ const Users = () => {
   const { data: users, isLoading, refetch } = useQuery('users',
     async () => {
       try {
-        const { data } = await axiosPrivate.get(`http://localhost:5000/users`);
+        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/users`);
         return data
       }
       catch (error) {

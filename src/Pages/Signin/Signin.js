@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import bg_login from '../../assets/images/bg_login.png';
 import { FcGoogle } from 'react-icons/fc';
 import { useForm } from 'react-hook-form';
@@ -21,6 +21,8 @@ const Signin = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   const [token] = useToken(signInUser || googleUser);
 
@@ -41,7 +43,8 @@ const Signin = () => {
   }
 
   if (token) {
-    navigate('/')
+    navigate(from, { replace: true });
+    toast.success('User Login Successfully.');
   }
 
   const handleGoogle = () => {

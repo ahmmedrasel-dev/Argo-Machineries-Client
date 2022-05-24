@@ -34,7 +34,7 @@ const AddProduct = () => {
             image: img
           }
 
-          fetch('http://localhost:5000/add-product', {
+          fetch('https://argo-machineries.herokuapp.com/add-product', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',

@@ -10,7 +10,6 @@ const SigngleProduct = ({ product, refetch }) => {
 
   refetch()
   return (
-
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure><img className='w-96 pl-6 rounded-lg' src={image} alt="Album" /></figure>
       <div className="card-body">

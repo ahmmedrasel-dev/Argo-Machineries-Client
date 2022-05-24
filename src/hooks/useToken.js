@@ -6,10 +6,9 @@ const useToken = user => {
 
   useEffect(() => {
     const email = user?.user?.email;
-
     if (email) {
       const updateUser = async () => {
-        const { data } = await axiosPrivate.put(`http://localhost:5000/user/${email}`)
+        const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.com/user/${email}`)
         const accessToken = data.token;
         localStorage.setItem('accessToken', accessToken)
         setToken(accessToken)

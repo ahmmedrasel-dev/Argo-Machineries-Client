@@ -12,7 +12,7 @@ const Machinary = () => {
   const { data: products, isLoading, refetch } = useQuery('all-products',
     async () => {
       try {
-        const { data } = await axiosPrivate.get(`http://localhost:5000/all-products`);
+        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/all-products`);
         return data.slice(0, 3)
       }
       catch (error) {

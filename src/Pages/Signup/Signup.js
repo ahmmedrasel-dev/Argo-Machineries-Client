@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import bg_login from '../../assets/images/bg_login.png';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile, useSignInWithGoogle } from 'react-firebase-hooks/auth';
@@ -20,13 +20,11 @@ const Signup = () => {
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
-  const [
-    updateProfile,
-    updating,
-    updateError
-  ] = useUpdateProfile(auth);
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
   const [token] = useToken(signUpUser || googleUser)
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -44,12 +42,14 @@ const Signup = () => {
   }, [signUpError, updateError, googleError])
 
 
-  if (loading || googleLoading) {
+  if (loading || googleLoading || updating) {
     return <Loading></Loading>;
   }
 
+
   if (token) {
-    navigate('/')
+    navigate(from, { replace: true });
+    toast.success('User Create Successfully.');
   }
 
   const handleGoogle = () => {
@@ -57,9 +57,8 @@ const Signup = () => {
   }
 
   const onSubmit = async data => {
-    const { email, password, name } = data;
-    await createUserWithEmailAndPassword(email, password)
-    await updateProfile({ displayName: name });
+    await createUserWithEmailAndPassword(data.email, data.password)
+    await updateProfile({ displayName: data.name });
   };
   return (
     <div className='lg:h-[750px] h-[1050px] bg-slate-200'>
