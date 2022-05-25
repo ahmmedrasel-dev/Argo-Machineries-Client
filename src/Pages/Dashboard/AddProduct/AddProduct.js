@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../../api/AxiosPrivate';
 
 const AddProduct = () => {
   const {
@@ -34,15 +35,9 @@ const AddProduct = () => {
             image: img
           }
 
-          fetch('https://argo-machineries.herokuapp.com/add-product', {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json',
-            },
-            body: JSON.stringify(product),
-          })
-            .then(res => res.json())
-            .then(data => {
+          try {
+            const postProduct = async () => {
+              const { data } = axiosPrivate.post('https://argo-machineries.herokuapp.com/add-product', product);
               if (data.success) {
                 toast.success(data.message);
                 reset();
@@ -50,7 +45,13 @@ const AddProduct = () => {
               else {
                 toast.success('Fail to add the Product.')
               }
-            })
+            }
+
+            postProduct()
+          }
+          catch (error) {
+            toast.error(error.message)
+          }
         }
       })
   }
