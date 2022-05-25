@@ -22,6 +22,7 @@ import MyOrder from "./Pages/Dashboard/MyOder/MyOrder";
 import AddReview from "./Pages/Dashboard/AddReveiw/AddReview";
 import Profile from "./Pages/Dashboard/Profile/Profile";
 import ManageOrders from "./Pages/Dashboard/ManageOrder/ManageOrders";
+import Payment from "./Pages/Dashboard/Payment/Payment";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="myprofile" element={<Profile></Profile>}></Route>
           <Route path="manageorder" element={<ManageOrders></ManageOrders>}></Route>
           <Route path="myorders" element={<MyOrder></MyOrder>}></Route>
+          <Route path="payment/:orderId" element={<Payment></Payment>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
           <Route path="add-product" element={<AddProduct></AddProduct>}></Route>
           <Route path="all-products" element={<AllProducts></AllProducts>}></Route>

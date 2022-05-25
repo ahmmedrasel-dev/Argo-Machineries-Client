@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shered/Loading/Loading';
@@ -42,7 +42,6 @@ const MyOrder = () => {
             <th>Product Name</th>
             <th>Quanity</th>
             <th>Price</th>
-            <th>Payment</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -54,9 +53,9 @@ const MyOrder = () => {
               <td>{product.productName}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
-              <td><button className='btn btn-success btn-sm'>Pay</button></td>
               <td>
-                <label htmlFor="delete-user" onClick={() => setOrderDelete(product)} className="btn btn-sm bg-red-600">Cancel</label>
+                {(product.price && !product.paid) && <Link to={`/dashboard/payment/${product._id}`}><button className='btn btn-success btn-sm'>Pay</button></Link>}
+                {!product.paid && <label htmlFor="delete-user" onClick={() => setOrderDelete(product)} className="btn btn-sm bg-red-600 ml-3">Cancel</label>}
               </td>
             </tr>)
           }

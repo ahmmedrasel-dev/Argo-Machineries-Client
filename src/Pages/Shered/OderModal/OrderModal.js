@@ -6,6 +6,7 @@ import auth from '../../../firebase.init';
 
 const OrderModal = ({ product, setNewProduct, refetch }) => {
   const [qtyError, setQtyError] = useState('')
+  const [disable, setDisable] = useState(false)
   const { name, price, minQuantity, quantity } = product;
   const [user] = useAuthState(auth)
   const handleSubmit = e => {
@@ -14,10 +15,12 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
     const newPrice = price * inputQuantity;
     if (inputQuantity < minQuantity) {
       setQtyError(`Minimum Quanity ${minQuantity}`)
+      setDisable(true)
     }
     else {
-      if (quantity > inputQuantity) {
+      if (inputQuantity > quantity) {
         setQtyError(`Maximum Quanity ${quantity}`)
+        setDisable(true)
       } else {
 
         const order = {
@@ -70,7 +73,7 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
             {qtyError ? <p className='text-red-500'>{qtyError}</p> : ''}
             <input type="text" disabled value={`$${price}`} className="input input-bordered input-primary w-full max-w-xs" />
 
-            <input type="submit" value="Submit" className="btn btn-primary w-full max-w-xs text-white" />
+            <input disabled={disable} type="submit" value="Submit" className="btn btn-primary w-full max-w-xs text-white" />
           </form>
         </div>
       </div>
