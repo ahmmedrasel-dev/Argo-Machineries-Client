@@ -41,6 +41,7 @@ const MyOrder = () => {
             <th>Product Name</th>
             <th>Quanity</th>
             <th>Price</th>
+            <th>Payment</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -52,6 +53,7 @@ const MyOrder = () => {
               <td>{product.productName}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
+              <td><button className='btn btn-success btn-sm'>Pay</button></td>
               <td>
                 <label htmlFor="delete-user" onClick={() => setUserDelete(user)} className="btn btn-sm bg-red-600">Delete</label>
               </td>
