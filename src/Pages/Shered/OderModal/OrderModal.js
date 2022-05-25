@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 
@@ -15,7 +16,10 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
       setQtyError(`Minimum Quanity ${minQuantity}`)
     }
     else {
-      if (!inputQuantity < quantity) {
+      if (quantity > inputQuantity) {
+        setQtyError(`Maximum Quanity ${quantity}`)
+      } else {
+
         const order = {
           productName: name,
           price: newPrice,
@@ -26,17 +30,25 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
           address: e.target.address.value,
         }
 
-        const postOrder = async () => {
-          const response = axiosPrivate.post('https://argo-machineries.herokuapp.com/oder', order);
-          console.log(response);
+        try {
+          const postOrder = async () => {
+            const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/oder', order);
+
+            if (data.success) {
+              toast.success(data.message)
+            } else {
+              toast.error(data.message)
+            }
+          }
+          postOrder()
+
+          refetch()
+          setNewProduct(null)
         }
-        postOrder()
+        catch (error) {
+          console.log(error.message)
+        }
 
-        refetch()
-        setNewProduct(null)
-
-      } else {
-        setQtyError(`Maximum Quanity ${quantity}`)
       }
     }
 

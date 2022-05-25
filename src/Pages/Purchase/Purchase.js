@@ -37,7 +37,7 @@ const Purchase = () => {
               <span className="label-text text-xl text-red-600">Minum Order Quanity: {product.minQuantity} </span>
             </label>
           </div>
-          <p className='text-2xl text-green-500'>Avaiable Qaunity: {product.quantity} Pices</p>
+          <p className='text-2xl text-green-500'>Available Qaunity: {product.quantity} Pices</p>
           <div className="flex lg:flex-row flex-col justify-between">
             <div className='lg:w-40 w-full'>
               <label
