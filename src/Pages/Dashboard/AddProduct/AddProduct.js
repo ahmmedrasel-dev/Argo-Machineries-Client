@@ -37,7 +37,7 @@ const AddProduct = () => {
 
           try {
             const postProduct = async () => {
-              const { data } = axiosPrivate.post('https://argo-machineries.herokuapp.com/add-product', product);
+              const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/add-product', product);
               if (data.success) {
                 toast.success(data.message);
                 reset();
@@ -119,7 +119,7 @@ const AddProduct = () => {
                   })}
                 />
                 <label className="label">
-                  {errors.Price?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.Price?.message}</span>}
+                  {errors.price?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.price?.message}</span>}
 
                 </label>
               </div>

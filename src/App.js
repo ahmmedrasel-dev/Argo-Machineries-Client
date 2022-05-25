@@ -20,6 +20,8 @@ import AllMachinaries from "./Pages/AllMachinaries/AllMachinaries";
 import Purchase from "./Pages/Purchase/Purchase";
 import MyOrder from "./Pages/Dashboard/MyOder/MyOrder";
 import AddReview from "./Pages/Dashboard/AddReveiw/AddReview";
+import Profile from "./Pages/Dashboard/Profile/Profile";
+import ManageOrders from "./Pages/Dashboard/ManageOrder/ManageOrders";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           </RequireAuth>
         }>
           <Route path="users" element={<Users></Users>}></Route>
+          <Route path="myprofile" element={<Profile></Profile>}></Route>
+          <Route path="manageorder" element={<ManageOrders></ManageOrders>}></Route>
           <Route path="myorders" element={<MyOrder></MyOrder>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
           <Route path="add-product" element={<AddProduct></AddProduct>}></Route>

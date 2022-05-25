@@ -8,9 +8,6 @@ const Review = () => {
       <h1 className='text-3xl text-yellow-400 text-center pt-8'>Our Clients Says</h1>
       <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 p-5'>
         <ReviewItem></ReviewItem>
-        <ReviewItem></ReviewItem>
-        <ReviewItem></ReviewItem>
-        <ReviewItem></ReviewItem>
       </div>
     </div>
   );

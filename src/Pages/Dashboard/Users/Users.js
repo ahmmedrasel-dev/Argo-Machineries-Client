@@ -1,10 +1,13 @@
+
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shered/Loading/Loading';
+import User from './User';
 import UserDelete from './UserDelete';
 
 const Users = () => {
@@ -25,6 +28,7 @@ const Users = () => {
       }
     }
   )
+
   if (isLoading) {
     return <Loading></Loading>
   }
@@ -34,22 +38,20 @@ const Users = () => {
         <thead>
           <tr>
             <th></th>
-            <th>User Name</th>
             <th>User Email</th>
+            <th>Make Admin</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {
-            users.map((user, index) => <tr key={user._id}>
-              <th>{index + 1}</th>
-
-              <td>{user.name ? user.name : 'Not Found!'}</td>
-              <td>{user.email}</td>
-              <td>
-                <label htmlFor="delete-user" onClick={() => setUserDelete(user)} className="btn btn-sm bg-red-600">Delete</label>
-              </td>
-            </tr>)
+            users.map((user, index) => <User
+              key={user._id}
+              index={index}
+              user={user}
+              refetch={refetch}
+              setUserDelete={setUserDelete}
+            ></User>)
           }
 
         </tbody>

@@ -53,7 +53,7 @@ const Navbar = () => {
                 </label>
                 < ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                   <li>
-                    <Link to='profile' className="justify-between">{user.displayName}</Link>
+                    <Link to='/dashboard/myprofile' className="justify-between">{user.displayName}</Link>
                     <Link to='dashboard' className="justify-between hidden lg:block">Dashboard</Link>
                     <label htmlFor="my-drawer-2" className="justify-between lg:hidden">Dashboard</label>
                     <button onClick={signout}>Sign Out</button>

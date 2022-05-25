@@ -1,22 +1,17 @@
 import { signOut } from 'firebase/auth';
-import React, { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shered/Loading/Loading';
-import OrderCancelModal from './OrderCancelModal';
 
-const MyOrder = () => {
-  const [user] = useAuthState(auth);
-  const email = user.email;
+const ManageOrders = () => {
   const navigate = useNavigate()
-  const [orderDelete, setOrderDelete] = useState(null)
-  const { data: products, isLoading, refetch } = useQuery('orders',
+  const { data: products, isLoading } = useQuery('orders',
     async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/order/${email}`);
+        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/orders`);
         return data;
       }
       catch (error) {
@@ -31,7 +26,6 @@ const MyOrder = () => {
   if (isLoading) {
     return <Loading></Loading>
   }
-
   return (
     <div className="overflow-x-auto">
       <h2 className='text-2xl mb-3'>Total Order: {products.length}</h2>
@@ -56,21 +50,15 @@ const MyOrder = () => {
               <td>{product.price}</td>
               <td><button className='btn btn-success btn-sm'>Pay</button></td>
               <td>
-                <label htmlFor="delete-user" onClick={() => setOrderDelete(product)} className="btn btn-sm bg-red-600">Cancel</label>
+                <label htmlFor="delete-user" className="btn btn-sm bg-red-600">Cancel</label>
               </td>
             </tr>)
           }
         </tbody>
       </table>
 
-      {orderDelete && <OrderCancelModal
-        orderDelete={orderDelete}
-        refetch={refetch}
-        setOrderDelete={setOrderDelete}
-      ></OrderCancelModal>}
-
     </div>
   );
 };
 
-export default MyOrder;
+export default ManageOrders;

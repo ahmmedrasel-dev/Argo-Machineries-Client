@@ -24,14 +24,13 @@ const SigngleProduct = ({ product, refetch }) => {
         </div>
         <div className="flex lg:flex-row flex-col justify-between">
           <label className="input-group mb-4 lg:mb-0">
-            <span>Quanity</span>
-            <input type="text" placeholder='Order Quantity' className="input input-bordered" />
+            <p className='text-2xl text-green-500'>Avaiable Qaunity: {quantity} Pices</p>
           </label>
           <div className='lg:w-40 w-full'>
             <button className="btn btn-primary lg:w-40 w-full" onClick={() => navigateToPurchase(_id)}>Buy Now</button>
           </div>
         </div>
-        <p className='text-2xl text-green-500'>Avaiable Qaunity: {quantity} Pices</p>
+
       </div>
     </div>
   );

@@ -37,18 +37,19 @@ const AddReview = () => {
         const img = result.data.url;
         const review = {
           name: user.displayName,
+          email: user.email,
           address: data.location,
           comment: data.comment,
           rating,
           image: img
         }
 
-        console.log(review)
         try {
           const postReview = async () => {
             const { data } = await axiosPrivate.post(`https://argo-machineries.herokuapp.com/review`, review);
             if (data.success) {
               toast.success(data.message)
+              reset();
             } else {
               toast.error(data.message)
             }
