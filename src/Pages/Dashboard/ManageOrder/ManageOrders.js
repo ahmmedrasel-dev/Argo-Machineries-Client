@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shered/Loading/Loading';
@@ -23,9 +24,28 @@ const ManageOrders = () => {
       }
     }
   )
+
+  const handleShip = id => {
+    const updateStatus = async () => {
+      try {
+        const { data } = await axiosPrivate.put(`http://localhost:5000/orderStatus/${id}`);
+        if (data.modifiedCount > 0) {
+          toast.success('Oder Shiped!')
+        }
+      }
+      catch (error) {
+        toast.error(error.message)
+      }
+    }
+    updateStatus()
+  }
+
+
+
   if (isLoading) {
     return <Loading></Loading>
   }
+
   return (
     <div className="overflow-x-auto">
       <h2 className='text-2xl mb-3'>Total Order: {products.length}</h2>
@@ -36,6 +56,7 @@ const ManageOrders = () => {
             <th>Product Name</th>
             <th>Quanity</th>
             <th>Price</th>
+            <th>Order</th>
             <th>Transaction Id</th>
             <th>Payment</th>
             <th>Action</th>
@@ -49,10 +70,15 @@ const ManageOrders = () => {
               <td>{product.productName}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
+              <td>
+                {product.status === 'pending' && <p className='font-bold text-red-600'>{product.status}</p>}
+                {product.status === 'success' && <p className='font-bold text-green-600'>{product.status}</p>}
+              </td>
+
               <td>{product.paid ? product.transactionId : 'Payment Not Complete'}</td>
               <td>{!product.paid ? <span className='text-red-500'>Unpaid</span> : <span className='text-green-500 font-bold'>Paid</span>}</td>
               <td>
-                <label htmlFor="delete-user" className="btn btn-sm bg-red-600">Shiped</label>
+                {product.status === 'pending' ? <button onClick={() => handleShip(product.transactionId)} className='bg-red-600 btn btn-sm'>Ship</button> : <button className='bg-green-600 btn btn-sm'>Success</button>}
               </td>
             </tr>)
           }
@@ -61,6 +87,6 @@ const ManageOrders = () => {
 
     </div>
   );
-};
+}
 
 export default ManageOrders;
