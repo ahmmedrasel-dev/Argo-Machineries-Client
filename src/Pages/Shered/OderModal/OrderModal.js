@@ -9,19 +9,23 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
   const [disable, setDisable] = useState(false)
   const { name, price, minQuantity, quantity } = product;
   const [user] = useAuthState(auth)
+
+  const handleQuantity = event => {
+    const inputQty = event.target.value;
+    if (inputQty < minQuantity) {
+      setQtyError(`Minimum Quanity ${minQuantity}`)
+      refetch()
+    }
+    if (inputQty > quantity) {
+      setQtyError(`Maximum Quanity ${quantity}`)
+      refetch()
+
+    }
+  }
   const handleSubmit = e => {
     e.preventDefault();
     const inputQuantity = e.target.qty.value;
     const newPrice = price * inputQuantity;
-    if (inputQuantity < minQuantity) {
-      setQtyError(`Minimum Quanity ${minQuantity}`)
-    }
-    else {
-      if (inputQuantity > quantity) {
-        setQtyError(`Maximum Quanity ${quantity}`)
-      }
-    }
-
     const order = {
       productName: name,
       price: newPrice,
@@ -66,7 +70,7 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
             <input type="email" disabled value={user?.email || ''} className="input input-bordered input-primary w-full max-w-xs" />
             <input type="text" name='phone' placeholder="Your Phone Number" className="input input-bordered input-primary w-full max-w-xs" />
             <input type="text" name='address' placeholder="Your Address" className="input input-bordered input-primary w-full max-w-xs" />
-            <input type="number" name="qty" placeholder='Quantity' className="input input-bordered input-primary w-full max-w-xs" />
+            <input type="number" name="qty" placeholder='Quantity' className="input input-bordered input-primary w-full max-w-xs" onChange={handleQuantity} />
             {qtyError ? <p className='text-red-500'>{qtyError}</p> : ''}
             <input type="text" disabled value={`$${price}`} className="input input-bordered input-primary w-full max-w-xs" />
 

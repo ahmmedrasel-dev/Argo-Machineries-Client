@@ -16,6 +16,7 @@ const Navbar = () => {
     <li><Link to='/all-machinaries'>Machineries</Link></li>
     <li><Link to='/review'>Review</Link></li>
     <li><Link to='/blog'>Blog</Link></li>
+    <li><Link to='/myportfolio'>Portfolio</Link></li>
     <li>{!user && <Link to='/signin'>SignIn</Link>}</li>
 
   </>

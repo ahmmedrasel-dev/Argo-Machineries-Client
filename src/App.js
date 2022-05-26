@@ -23,6 +23,7 @@ import AddReview from "./Pages/Dashboard/AddReveiw/AddReview";
 import Profile from "./Pages/Dashboard/Profile/Profile";
 import ManageOrders from "./Pages/Dashboard/ManageOrder/ManageOrders";
 import Payment from "./Pages/Dashboard/Payment/Payment";
+import Myportfolio from "./Pages/MyPortfolio/Myportfolio";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Purchase></Purchase>
           </RequireAuth>
         }></Route>
+        <Route path="/myportfolio" element={<Myportfolio></Myportfolio>}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="/machinaries" element={<Machinaries></Machinaries>}></Route>
         <Route path="*" element={<Notfound></Notfound>}></Route>
