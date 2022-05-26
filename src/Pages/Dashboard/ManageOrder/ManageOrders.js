@@ -40,8 +40,6 @@ const ManageOrders = () => {
     updateStatus()
   }
 
-
-
   if (isLoading) {
     return <Loading></Loading>
   }
