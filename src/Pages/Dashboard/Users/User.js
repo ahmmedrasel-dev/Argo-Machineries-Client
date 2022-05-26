@@ -7,7 +7,7 @@ const User = ({ user, refetch, setUserDelete, index }) => {
 
   const makeAdmin = () => {
     const updatRole = async () => {
-      const { data } = await axiosPrivate.put(`hhttps://argo-machineries.herokuapp.comuser/admin/${email}`);
+      const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.comuser/admin/${email}`);
       if (data.modifiedCount > 0) {
         toast.success('Successfully Make Admin')
         refetch()

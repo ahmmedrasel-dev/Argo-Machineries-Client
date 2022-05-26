@@ -15,44 +15,41 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
     const newPrice = price * inputQuantity;
     if (inputQuantity < minQuantity) {
       setQtyError(`Minimum Quanity ${minQuantity}`)
-      setDisable(true)
     }
     else {
       if (inputQuantity > quantity) {
         setQtyError(`Maximum Quanity ${quantity}`)
-        setDisable(true)
-      } else {
-
-        const order = {
-          productName: name,
-          price: newPrice,
-          quantity: inputQuantity,
-          customer_name: user?.displayName,
-          customer_email: user?.email,
-          phone: e.target.phone.value,
-          address: e.target.address.value,
-        }
-
-        try {
-          const postOrder = async () => {
-            const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/oder', order);
-
-            if (data.success) {
-              toast.success(data.message)
-            } else {
-              toast.error(data.message)
-            }
-          }
-          postOrder()
-
-          refetch()
-          setNewProduct(null)
-        }
-        catch (error) {
-          console.log(error.message)
-        }
-
       }
+    }
+
+    const order = {
+      productName: name,
+      price: newPrice,
+      quantity: inputQuantity,
+      customer_name: user?.displayName,
+      customer_email: user?.email,
+      phone: e.target.phone.value,
+      address: e.target.address.value,
+      status: 'pending'
+    }
+
+    try {
+      const postOrder = async () => {
+        const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/oder', order);
+
+        if (data.success) {
+          toast.success(data.message)
+        } else {
+          toast.error(data.message)
+        }
+      }
+      postOrder()
+
+      refetch()
+      setNewProduct(null)
+    }
+    catch (error) {
+      console.log(error.message)
     }
 
   }
@@ -73,7 +70,7 @@ const OrderModal = ({ product, setNewProduct, refetch }) => {
             {qtyError ? <p className='text-red-500'>{qtyError}</p> : ''}
             <input type="text" disabled value={`$${price}`} className="input input-bordered input-primary w-full max-w-xs" />
 
-            <input disabled={disable} type="submit" value="Submit" className="btn btn-primary w-full max-w-xs text-white" />
+            <input type="submit" value="Submit" className="btn btn-primary w-full max-w-xs text-white" />
           </form>
         </div>
       </div>

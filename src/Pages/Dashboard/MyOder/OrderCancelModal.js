@@ -7,7 +7,7 @@ const OrderCancelModal = ({ setOrderDelete, refetch, orderDelete }) => {
 
   const handDelete = () => {
     const deleteProd = async () => {
-      const response = await axiosPrivate.delete(`hhttps://argo-machineries.herokuapp.com/order/${_id}`);
+      const response = await axiosPrivate.delete(`https://argo-machineries.herokuapp.com/order/${_id}`);
       if (response.status === 200) {
         toast.success(`Order: ${_id} is Cancel!`)
         setOrderDelete(null)

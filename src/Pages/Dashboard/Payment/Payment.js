@@ -4,7 +4,13 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import Loading from '../../Shered/Loading/Loading';
+import { loadStripe } from '@stripe/stripe-js';
+import {
+  Elements
+} from '@stripe/react-stripe-js';
+import CheckoutForm from './CheckoutForm';
 
+const stripePromise = loadStripe('pk_test_F7Vho272jVFTDHQwm6PSx4vQ00zuVEmORb');
 const Payment = () => {
   const { orderId } = useParams();
 
@@ -40,13 +46,11 @@ const Payment = () => {
           </div>
         </div>
 
-        <div className="card bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn">Buy Now</button>
-            </div>
+        <div className="card bg-base-200 text-primary-content">
+          <div className="card-body mt-24">
+            <Elements stripe={stripePromise}>
+              <CheckoutForm order={order} />
+            </Elements>
           </div>
         </div>
       </div>

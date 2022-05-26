@@ -42,6 +42,7 @@ const MyOrder = () => {
             <th>Product Name</th>
             <th>Quanity</th>
             <th>Price</th>
+            <th>Transaction Id</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -53,9 +54,11 @@ const MyOrder = () => {
               <td>{product.productName}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
+              <td>{product.paid ? product.transactionId : 'Payment Not Complete'}</td>
               <td>
                 {(product.price && !product.paid) && <Link to={`/dashboard/payment/${product._id}`}><button className='btn btn-success btn-sm'>Pay</button></Link>}
                 {!product.paid && <label htmlFor="delete-user" onClick={() => setOrderDelete(product)} className="btn btn-sm bg-red-600 ml-3">Cancel</label>}
+                {product.paid && <span className='text-green-500'>Payment Complete</span>}
               </td>
             </tr>)
           }

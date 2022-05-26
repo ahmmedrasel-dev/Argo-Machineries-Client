@@ -36,6 +36,7 @@ const ManageOrders = () => {
             <th>Product Name</th>
             <th>Quanity</th>
             <th>Price</th>
+            <th>Transaction Id</th>
             <th>Payment</th>
             <th>Action</th>
           </tr>
@@ -48,9 +49,10 @@ const ManageOrders = () => {
               <td>{product.productName}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
-              <td><button className='btn btn-success btn-sm'>Pay</button></td>
+              <td>{product.paid ? product.transactionId : 'Payment Not Complete'}</td>
+              <td>{!product.paid ? <span className='text-red-500'>Unpaid</span> : <span className='text-green-500 font-bold'>Paid</span>}</td>
               <td>
-                <label htmlFor="delete-user" className="btn btn-sm bg-red-600">Cancel</label>
+                <label htmlFor="delete-user" className="btn btn-sm bg-red-600">Shiped</label>
               </td>
             </tr>)
           }
