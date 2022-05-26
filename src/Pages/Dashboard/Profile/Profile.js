@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
@@ -15,11 +16,19 @@ const Profile = () => {
   } = useForm();
 
   const [user] = useAuthState(auth);
-  const email = user.email
+  const email = user.email;
+
+  const { data: newuser } = useQuery('user', async () => {
+    const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/user/${email}`);
+    console.log(data)
+    return data;
+  })
+
   const onSubmit = async data => {
 
     const profile = {
       phone: data.phone,
+      name: user.displayName,
       address: data.address,
       education: data.education,
       institute: data.institute,
@@ -40,6 +49,21 @@ const Profile = () => {
 
   return (
     <div className='artboard artboard-horizontal lg:max-w-4xl max-w-sm mt-6 mx-auto'>
+      <div className="card bg-base-100 shadow-xl my-10">
+        <div className="card-body">
+          <h1 className='text-primary text-2xl uppercase'>Manage Profile</h1>
+          <ul>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Name: {newuser?.name && 'Not Found'}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Phone: {newuser?.phone && 'Not Found'}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Email: {newuser?.email}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Address: {newuser?.address}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Education: {newuser?.education}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>Education Institute: {newuser?.institute}</li>
+            <li className='px-6 py-2 border-b border-gray-200 w-full text-xl'>User Linkedin Profile: {newuser?.linkedin}</li>
+          </ul>
+        </div>
+      </div>
+
       <div className="card bg-base-100 shadow-xl my-10">
         <div className="card-body">
           <h1 className='text-primary text-2xl uppercase'>Manage Profile</h1>
@@ -168,7 +192,6 @@ const Profile = () => {
               </div>
 
             </div>
-
 
             <div className='grid grid-cols-1 px-4 gap-3'>
               <div className="form-control">
