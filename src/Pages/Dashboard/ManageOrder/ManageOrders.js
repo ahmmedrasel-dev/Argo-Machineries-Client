@@ -28,7 +28,7 @@ const ManageOrders = () => {
   const handleShip = id => {
     const updateStatus = async () => {
       try {
-        const { data } = await axiosPrivate.put(`http://localhost:5000/orderStatus/${id}`);
+        const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.com/orderStatus/${id}`);
         if (data.modifiedCount > 0) {
           toast.success('Oder Shiped!')
         }
