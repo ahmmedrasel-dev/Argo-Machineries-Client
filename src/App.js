@@ -24,6 +24,7 @@ import Profile from "./Pages/Dashboard/Profile/Profile";
 import ManageOrders from "./Pages/Dashboard/ManageOrder/ManageOrders";
 import Payment from "./Pages/Dashboard/Payment/Payment";
 import Myportfolio from "./Pages/MyPortfolio/Myportfolio";
+import Review from "./Pages/Home/Review";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           </RequireAuth>
         }></Route>
         <Route path="/myportfolio" element={<Myportfolio></Myportfolio>}></Route>
+        <Route path="/review" element={<Review></Review>}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="/machinaries" element={<Machinaries></Machinaries>}></Route>
         <Route path="*" element={<Notfound></Notfound>}></Route>
