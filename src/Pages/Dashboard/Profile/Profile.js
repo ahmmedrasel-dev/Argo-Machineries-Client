@@ -1,7 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
@@ -18,10 +18,13 @@ const Profile = () => {
   const [user] = useAuthState(auth);
   const email = user.email;
 
-  const { data: newuser } = useQuery('user', async () => {
-    const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/user/${email}`);
-    console.log(data)
-    return data;
+  const { data: newuser } = useQuery({
+    queryKey: ['user', 'email'],
+    queryFn: async () => {
+      const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/user/${email}`);
+      console.log(data)
+      return data;
+    }
   })
 
   const onSubmit = async data => {
@@ -36,7 +39,7 @@ const Profile = () => {
     }
 
     const updateUser = async () => {
-      const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.com/user/${email}`, profile);
+      const { data } = await axiosPrivate.put(`https://argu-machinaries-server.onrender.com/user/${email}`, profile);
       if (data.result.modifiedCount > 0) {
         console.log('success')
         toast.success('Profile Updated Successfuly.')

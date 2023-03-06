@@ -1,7 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
@@ -13,10 +13,11 @@ const MyOrder = () => {
   const email = user.email;
   const navigate = useNavigate()
   const [orderDelete, setOrderDelete] = useState(null)
-  const { data: products, isLoading, refetch } = useQuery('orders',
-    async () => {
+  const { data: products, isLoading, refetch } = useQuery({
+    queryKey: ['order', 'email'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/order/${email}`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/order/${email}`);
         return data;
       }
       catch (error) {
@@ -27,7 +28,7 @@ const MyOrder = () => {
         }
       }
     }
-  )
+  })
   if (isLoading) {
     return <Loading></Loading>
   }

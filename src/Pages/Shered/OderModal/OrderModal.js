@@ -24,7 +24,7 @@ const OrderModal = ({ product, setNewProduct, refetch, inputquantity }) => {
 
     try {
       const postOrder = async () => {
-        const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/oder', order);
+        const { data } = await axiosPrivate.post('https://argu-machinaries-server.onrender.com/oder', order);
 
         if (data.success) {
           toast.success(data.message)

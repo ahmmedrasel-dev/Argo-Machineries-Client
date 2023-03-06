@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { signOut } from 'firebase/auth';
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
@@ -9,10 +9,11 @@ import Loading from '../../Shered/Loading/Loading';
 
 const ManageOrders = () => {
   const navigate = useNavigate()
-  const { data: products, isLoading } = useQuery('orders',
-    async () => {
+  const { data: products, isLoading } = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/orders`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/orders`);
         return data;
       }
       catch (error) {
@@ -23,12 +24,12 @@ const ManageOrders = () => {
         }
       }
     }
-  )
+  })
 
   const handleShip = id => {
     const updateStatus = async () => {
       try {
-        const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.com/orderStatus/${id}`);
+        const { data } = await axiosPrivate.put(`https://argu-machinaries-server.onrender.com/orderStatus/${id}`);
         if (data.modifiedCount > 0) {
           toast.success('Oder Shiped!')
         }

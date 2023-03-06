@@ -2,24 +2,24 @@ import React from 'react';
 
 import ReactStars from 'react-rating-stars-component';
 import { AiFillStar } from 'react-icons/ai';
-import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import Loading from '../Shered/Loading/Loading';
 import axiosPrivate from '../../api/AxiosPrivate';
+import { useQuery } from '@tanstack/react-query';
 
 const ReviewItem = () => {
-
-  const { data: reviews, isLoading } = useQuery('reviews',
-    async () => {
+  const { data: reviews = [], isLoading } = useQuery({
+    queryKey: ['reviews'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get('https://argo-machineries.herokuapp.com/reviews');
+        const { data } = await axiosPrivate.get('https://argu-machinaries-server.onrender.com/reviews');
         return data.slice(0, 4);
       }
       catch (error) {
         toast.error(error.messae)
       }
     }
-  )
+  })
 
   if (isLoading) {
     return <Loading></Loading>

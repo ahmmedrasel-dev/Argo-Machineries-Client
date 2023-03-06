@@ -7,7 +7,7 @@ const UserDelete = ({ userDelete, refetch, setUserDelete }) => {
 
   const handDelete = () => {
     const deleteProd = async () => {
-      const response = await axiosPrivate.delete(`https://argo-machineries.herokuapp.com/user/${_id}`);
+      const response = await axiosPrivate.delete(`https://argu-machinaries-server.onrender.com/user/${_id}`);
       if (response.status === 200) {
         toast.success(`User: ${name} is Deleted!`)
         setUserDelete(null)

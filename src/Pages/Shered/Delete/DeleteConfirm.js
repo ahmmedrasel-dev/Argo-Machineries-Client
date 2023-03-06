@@ -7,7 +7,7 @@ const DeletConfirmModel = ({ setDeleteProduct, refetch, deleteProduct }) => {
 
   const handDelete = () => {
     const deleteProd = async () => {
-      const response = await axiosPrivate.delete(`https://argo-machineries.herokuapp.com/product/${_id}`);
+      const response = await axiosPrivate.delete(`https://argu-machinaries-server.onrender.com/product/${_id}`);
       if (response.status === 200) {
         toast.success(`Product: ${name} is Deleted!`)
         setDeleteProduct(null)

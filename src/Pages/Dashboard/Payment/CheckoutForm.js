@@ -22,7 +22,7 @@ const CheckoutForm = ({ order }) => {
   useEffect(() => {
     const postData = async () => {
       try {
-        const { data } = await axiosPrivate.post(`https://argo-machineries.herokuapp.com/create-payment-intent`, { price });
+        const { data } = await axiosPrivate.post(`https://argu-machinaries-server.onrender.com/create-payment-intent`, { price });
         if (data?.clientSecret) {
           setClientSecret(data.clientSecret)
         }
@@ -84,7 +84,7 @@ const CheckoutForm = ({ order }) => {
 
       const dataPatch = async () => {
         try {
-          const { data } = await axiosPrivate.patch(`https://argo-machineries.herokuapp.com/order/${_id}`, payment);
+          const { data } = await axiosPrivate.patch(`https://argu-machinaries-server.onrender.com/order/${_id}`, payment);
           setProcesing(data)
         }
         catch (error) {

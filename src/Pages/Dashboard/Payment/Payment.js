@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
@@ -9,18 +8,22 @@ import {
   Elements
 } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
+import { useQuery } from '@tanstack/react-query';
 
 const stripePromise = loadStripe('pk_test_F7Vho272jVFTDHQwm6PSx4vQ00zuVEmORb');
 const Payment = () => {
   const { orderId } = useParams();
 
-  const { data: order, isLoading } = useQuery('order', async () => {
-    try {
-      const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/paymentOrder/${orderId}`);
-      return data;
-    }
-    catch (error) {
-      toast.error(error.message);
+  const { data: order, isLoading } = useQuery({
+    queryKey: ['paymentOrder', 'orderId'],
+    queryFn: async () => {
+      try {
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/paymentOrder/${orderId}`);
+        return data;
+      }
+      catch (error) {
+        toast.error(error.message);
+      }
     }
   })
 

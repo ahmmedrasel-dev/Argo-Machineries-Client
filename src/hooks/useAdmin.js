@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../api/AxiosPrivate';
 
@@ -12,7 +11,7 @@ const useAdmin = user => {
     if (email) {
       try {
         const getUser = async () => {
-          const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/admin/${email}`);
+          const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/admin/${email}`);
           setAdmin(data.admin)
           setAdminLoading(false)
         }

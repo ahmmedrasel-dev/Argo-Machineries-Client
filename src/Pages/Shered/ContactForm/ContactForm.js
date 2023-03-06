@@ -13,7 +13,7 @@ const ContactForm = () => {
       message: data.message
     }
 
-    fetch(`https://argo-machineries.herokuapp.com/contact`, {
+    fetch(`https://argu-machinaries-server.onrender.com/contact`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

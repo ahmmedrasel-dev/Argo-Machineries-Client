@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
 import axiosPrivate from '../../api/AxiosPrivate';
 import Loading from '../Shered/Loading/Loading';
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init';
 import { useNavigate } from 'react-router-dom';
 import DeletConfirmModel from '../Shered/Delete/DeleteConfirm';
+import { useQuery } from '@tanstack/react-query';
 
 const AllProducts = () => {
   const [deleteProduct, setDeleteProduct] = useState(null);
   const navigate = useNavigate()
-  const { data: products, isLoading, refetch } = useQuery('all-products',
-    async () => {
+  const { data: products, isLoading, refetch } = useQuery({
+    queryKey: ['all-products'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/all-products`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/all-products`);
         return data
       }
       catch (error) {
@@ -23,8 +24,8 @@ const AllProducts = () => {
           navigate('/')
         }
       }
-
-    })
+    }
+  })
 
   if (isLoading) {
     return <Loading></Loading>

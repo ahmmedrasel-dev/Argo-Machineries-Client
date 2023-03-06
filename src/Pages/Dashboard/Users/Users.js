@@ -1,9 +1,8 @@
 
+import { useQuery } from '@tanstack/react-query';
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/AxiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shered/Loading/Loading';
@@ -13,10 +12,11 @@ import UserDelete from './UserDelete';
 const Users = () => {
   const navigate = useNavigate()
   const [userDelete, setUserDelete] = useState(null)
-  const { data: users, isLoading, refetch } = useQuery('users',
-    async () => {
+  const { data: users, isLoading, refetch } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/users`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/users`);
         return data
       }
       catch (error) {
@@ -27,7 +27,7 @@ const Users = () => {
         }
       }
     }
-  )
+  })
 
   if (isLoading) {
     return <Loading></Loading>

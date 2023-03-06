@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/images/logo.png'
 import { BsEnvelopeFill, BsFillTelephonePlusFill, BsTwitter } from 'react-icons/bs'
 import { ImLocation2 } from 'react-icons/im'
 import { GrPaypal } from 'react-icons/gr'
@@ -14,7 +13,7 @@ const Footer = () => {
       <div className='footer grid lg:grid-cols-3 grid-cols-1 mb-8'>
         <div>
           <span className="footer-title text-2xl">About Us</span>
-          <img className='w-28' src={logo} alt="" />
+          Argu Machinaries
           <article>
             Argo Machinary is import Agriculture & Landscaping Tools and Machinaries is your one-stop solution. We offer Agriculture Garden & Landscaping tools in a best price that meet every need.
           </article>

@@ -8,7 +8,7 @@ const useToken = user => {
     const email = user?.user?.email;
     if (email) {
       const updateUser = async () => {
-        const { data } = await axiosPrivate.put(`https://argo-machineries.herokuapp.com/user/${email}`)
+        const { data } = await axiosPrivate.put(`https://argu-machinaries-server.onrender.com/user/${email}`)
         const accessToken = data.token;
         localStorage.setItem('accessToken', accessToken)
         setToken(accessToken)

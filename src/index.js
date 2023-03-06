@@ -5,14 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'tw-elements';
 import { BrowserRouter } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 // Create a client
-const queryClient = new QueryClient()
+const clint = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={clint} >
       <BrowserRouter>
         <App />
       </BrowserRouter>

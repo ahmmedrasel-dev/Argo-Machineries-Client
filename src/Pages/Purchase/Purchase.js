@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosPrivate from '../../api/AxiosPrivate';
 import Loading from '../Shered/Loading/Loading';
@@ -10,17 +10,18 @@ const Purchase = () => {
   const [newProduct, setNewProduct] = useState(null)
   const [quantity, setQuantity] = useState(0)
   const [quanityError, setQtyError] = useState('');
-  const { data: product, isLoading, refetch } = useQuery('product',
-    async () => {
+  const { data: product, isLoading, refetch } = useQuery({
+    queryKey: ['product', 'id'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/product/${id}`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/product/${id}`);
         return data;
       }
       catch (error) {
         console.log(error.message)
       }
     }
-  )
+  })
 
   const handleQty = e => {
     const newQuantity = e.target.value;

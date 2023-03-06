@@ -37,7 +37,7 @@ const AddProduct = () => {
 
           try {
             const postProduct = async () => {
-              const { data } = await axiosPrivate.post('https://argo-machineries.herokuapp.com/add-product', product);
+              const { data } = await axiosPrivate.post('https://argu-machinaries-server.onrender.com/add-product', product);
               if (data.success) {
                 toast.success(data.message);
                 reset();

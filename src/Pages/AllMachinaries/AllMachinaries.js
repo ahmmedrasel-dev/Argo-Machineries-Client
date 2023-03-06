@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { signOut } from 'firebase/auth';
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../api/AxiosPrivate';
 import auth from '../../firebase.init';
@@ -9,10 +9,11 @@ import Loading from '../Shered/Loading/Loading';
 
 const AllMachinaries = () => {
   const navigate = useNavigate()
-  const { data: products, isLoading, refetch } = useQuery('all-products',
-    async () => {
+  const { data: products = [], isLoading, refetch } = useQuery({
+    queryKey: ['all-products'],
+    queryFn: async () => {
       try {
-        const { data } = await axiosPrivate.get(`https://argo-machineries.herokuapp.com/all-products`);
+        const { data } = await axiosPrivate.get(`https://argu-machinaries-server.onrender.com/all-products`);
         return data
       }
       catch (error) {
@@ -22,8 +23,8 @@ const AllMachinaries = () => {
           navigate('/')
         }
       }
-
-    })
+    }
+  })
 
   if (isLoading) {
     return <Loading></Loading>

@@ -2,7 +2,6 @@ import React from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/images/logo.png"
 import auth from "../../../firebase.init";
 
 const Navbar = () => {
@@ -35,7 +34,7 @@ const Navbar = () => {
               {navItem}
             </ul>
           </div>
-          <Link to='/'><img className="w-28 ml-12 lg:ml-0" src={logo} alt="logo" /></Link>
+          <Link to='/'>Argu-Machineries</Link>
         </div>
         <div className="flex-non">
           <div className=" hidden lg:flex">

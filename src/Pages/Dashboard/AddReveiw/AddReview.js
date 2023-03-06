@@ -46,7 +46,7 @@ const AddReview = () => {
 
         try {
           const postReview = async () => {
-            const { data } = await axiosPrivate.post(`https://argo-machineries.herokuapp.com/review`, review);
+            const { data } = await axiosPrivate.post(`https://argu-machinaries-server.onrender.com/review`, review);
             if (data.success) {
               toast.success(data.message)
               reset();
